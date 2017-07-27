@@ -22,6 +22,9 @@ class CheckerboardPose
  public:
   CheckerboardPose(int chk_h, int chk_w, float l);
   ~CheckerboardPose();
+
+  void WriteMatToFile(cv::Mat m, const char *filename);
+
   /**
    * @brief      Returns pose of the camera that clicked the image
    *
@@ -31,7 +34,36 @@ class CheckerboardPose
    *
    * @return     Output pose of camera
    */
-  cv::Mat PoseFromImage(const cv::Mat &intrinsic, const std::string &mat_file);
+  cv::Mat PoseFromMatlab(const cv::Mat &intrinsic, const std::string &mat_file);
+
+  /**
+   * @brief      Returns pose of the camera that clicked the image
+   *
+   * @param[in]  intrinsic  Input intrinsic camera matrix
+   * @param[in]  reg_cor    The 2D checkerboard image coordinates
+   *
+   * @return     Output pose of camera
+   */
+  cv::Mat PoseFromCV(const cv::Mat &intrinsic,
+                     const std::vector<cv::Point2f> &reg_cor);
+
+  /**
+   * @brief      Finds the scale of ORB SLAM versus the real world
+   *
+   * @param[in]  intrinsic  Intrinsic parameters of the camera
+   * @param[in]  pose1      First pose coming out of ORB SLAM, generally
+   *                        identity
+   * @param[in]  pose2      Second pose coming out of the second keyframe
+   * @param[in]  pts1       Vector of points of checkerboard in image1
+   * @param[in]  pts2       Vector of points of checkerboard in image2
+   *
+   * @return     scale of ORBSLAM v/s real world
+   */
+  float FindScale(const cv::Mat &intrinsic,
+                  const cv::Mat &pose1,
+                  const cv::Mat &pose2,
+                  const std::vector<cv::Point2f> &pts1,
+                  const std::vector<cv::Point2f> &pts2);
 
  private:
   bool LoadCheckerboardFromMatlab(const std::string file_name,

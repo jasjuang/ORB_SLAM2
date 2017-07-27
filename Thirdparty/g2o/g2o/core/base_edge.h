@@ -45,8 +45,8 @@ namespace g2o {
 
       static const int Dimension = D;
       typedef E Measurement;
-      typedef Matrix<double, D, 1> ErrorVector;
-      typedef Matrix<double, D, D> InformationType;
+      typedef Matrix<double, D, 1, ColMajor> ErrorVector;
+      typedef Matrix<double, D, D, ColMajor> InformationType;
 
       BaseEdge() : OptimizableGraph::Edge()
       {

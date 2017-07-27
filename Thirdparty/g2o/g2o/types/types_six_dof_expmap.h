@@ -49,7 +49,7 @@ void init();
 
 using namespace Eigen;
 
-typedef Matrix<double, 6, 6> Matrix6d;
+typedef Matrix<double, 6, 6, Eigen::ColMajor> Matrix6d;
 
 
 /**

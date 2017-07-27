@@ -207,7 +207,7 @@ namespace g2o {
 //    double z = xyz_trans[2];
 //    double z_2 = z*z;
 
-//    Matrix<double,2,3> tmp;
+//    Matrix<double,2,3, Eigen::ColMajor> tmp;
 //    tmp(0,0) = _focal_length(0);
 //    tmp(0,1) = 0;
 //    tmp(0,2) = -x/z*_focal_length(0);

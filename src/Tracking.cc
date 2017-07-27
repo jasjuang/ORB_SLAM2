@@ -25,13 +25,19 @@
 #include <opencv2/features2d/features2d.hpp>
 
 #include "Converter.h"
+
 #include "FrameDrawer.h"
+
 #include "Initializer.h"
+
 #include "Map.h"
+
 #include "ORBmatcher.h"
 
 #include "CheckerboardPose.h"
+
 #include "Optimizer.h"
+
 #include "PnPsolver.h"
 
 #include <iostream>
@@ -679,15 +685,25 @@ void Tracking::MonocularInitialization()
       }
 
       // Set Frame Poses
-      CheckerboardPose checkerboard_pose(20, 9, 0.08);
-      cv::Mat pose1 = checkerboard_pose.PoseFromImage(mK, "image1.mat");
-      cv::Mat pose2 = checkerboard_pose.PoseFromImage(mK, "image2.mat");
-      mInitialFrame.SetPose(pose1);
-      // mInitialFrame.SetPose(cv::Mat::eye(4, 4, CV_32F));
-      // cv::Mat Tcw = cv::Mat::eye(4, 4, CV_32F);
-      // Rcw.copyTo(Tcw.rowRange(0, 3).colRange(0, 3));
-      // tcw.copyTo(Tcw.rowRange(0, 3).col(3));
-      mCurrentFrame.SetPose(pose2);
+      mInitialFrame.SetPose(cv::Mat::eye(4, 4, CV_32F));
+      cv::Mat Tcw = cv::Mat::eye(4, 4, CV_32F);
+      Rcw.copyTo(Tcw.rowRange(0, 3).colRange(0, 3));
+      tcw.copyTo(Tcw.rowRange(0, 3).col(3));
+      mCurrentFrame.SetPose(Tcw);
+
+      // Calculation of scale for metric transformations
+      // CheckerboardPose checkerboard_pose(10, 7, 0.022);
+      // std::vector<cv::Point2f> points1;
+      // points1 = mInitialFrame.Calc2DCoordinates(10, 7, 0);
+      // std::vector<cv::Point2f> points2;
+      // points2    = mCurrentFrame.Calc2DCoordinates(10, 7, 1);
+      // cv::Mat p1 = mInitialFrame.mTcw;
+      // cv::Mat p2 = mCurrentFrame.mTcw;
+      // std::cout << "Calculated Pose 1 = " << p1 << std::endl;
+      // std::cout << "Calculated Pose 2 = " << p2 << std::endl;
+      // mScale = checkerboard_pose.FindScale(mK, p1, p2, points1, points2);
+      // std::cout << "Metric scale = " << mScale << std::endl;
+      // mInitialFrame.SetPose(pose1);
 
       CreateInitialMapMonocular();
     }
