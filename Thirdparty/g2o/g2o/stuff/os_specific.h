@@ -27,7 +27,7 @@
 #ifndef G2O_OS_SPECIFIC_HH_
 #define G2O_OS_SPECIFIC_HH_
 
-#ifdef WINDOWS
+#ifdef _WIN32
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
@@ -46,7 +46,7 @@ int vasprintf(char** strp, const char* fmt, va_list ap);
 }
 #endif
 
-#endif
+#endif // _WIN32
 
 #ifdef UNIX
 #include <sys/time.h>

@@ -9,7 +9,6 @@
 #include <vector>
 
 #include "SolverResectionP3P.h"
-#include "glog/logging.h"
 #include "opencv2/opencv.hpp"
 #include "opencv2/surface_matching/ppf_helpers.hpp"
 

@@ -81,7 +81,13 @@ void LoopClosing::Run()
         if(CheckFinish())
             break;
 
-        usleep(5000);
+		
+#ifdef __linux__
+			usleep(5000);
+#elif _WIN32
+			Sleep(5);
+#endif
+		
     }
 
     SetFinish();
@@ -424,9 +430,13 @@ void LoopClosing::CorrectLoop()
 
     // Wait until Local Mapping has effectively stopped
     while(!mpLocalMapper->isStopped())
-    {
-        usleep(1000);
-    }
+	{
+#ifdef __linux__
+		usleep(1000);
+#elif _WIN32
+		Sleep(1);
+#endif
+	}
 
     // Ensure current keyframe is updated
     mpCurrentKF->UpdateConnections();
@@ -627,7 +637,13 @@ void LoopClosing::RequestReset()
         if(!mbResetRequested)
             break;
         }
-        usleep(5000);
+		
+#ifdef __linux__
+			usleep(5000);
+#elif _WIN32
+			Sleep(5);
+#endif
+		
     }
 }
 
@@ -666,9 +682,13 @@ void LoopClosing::RunGlobalBundleAdjustment(unsigned long nLoopKF)
             // Wait until Local Mapping has effectively stopped
 
             while(!mpLocalMapper->isStopped() && !mpLocalMapper->isFinished())
-            {
-                usleep(1000);
-            }
+			{
+#ifdef __linux__
+				usleep(1000);
+#elif _WIN32
+				Sleep(1);
+#endif
+			}
 
             // Get Map Mutex
             unique_lock<mutex> lock(mpMap->mMutexMapUpdate);

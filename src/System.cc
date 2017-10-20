@@ -150,9 +150,13 @@ cv::Mat System::TrackStereo(const cv::Mat &imLeft,
 
       // Wait until Local Mapping has effectively stopped
       while (!mpLocalMapper->isStopped())
-      {
-        usleep(1000);
-      }
+	  {
+#ifdef __linux__
+		  usleep(1000);
+#elif _WIN32
+		  Sleep(1);
+#endif
+	  }
 
       mpTracker->InformOnlyTracking(true);
       mbActivateLocalizationMode = false;
@@ -204,9 +208,13 @@ cv::Mat System::TrackRGBD(const cv::Mat &im,
 
       // Wait until Local Mapping has effectively stopped
       while (!mpLocalMapper->isStopped())
-      {
-        usleep(1000);
-      }
+	  {
+#ifdef __linux__
+		  usleep(1000);
+#elif _WIN32
+		  Sleep(1);
+#endif
+	  }
 
       mpTracker->InformOnlyTracking(true);
       mbActivateLocalizationMode = false;
@@ -257,9 +265,13 @@ cv::Mat System::TrackMonocular(const cv::Mat &im, const double &timestamp)
 
       // Wait until Local Mapping has effectively stopped
       while (!mpLocalMapper->isStopped())
-      {
-        usleep(1000);
-      }
+	  {
+#ifdef __linux__
+		  usleep(1000);
+#elif _WIN32
+		  Sleep(1);
+#endif
+	  }
 
       mpTracker->InformOnlyTracking(true);
       mbActivateLocalizationMode = false;
@@ -330,14 +342,25 @@ void System::Shutdown()
   if (mpViewer)
   {
     mpViewer->RequestFinish();
-    while (!mpViewer->isFinished()) usleep(5000);
+    while (!mpViewer->isFinished())
+	{
+#ifdef __linux__
+		usleep(3000);
+#elif _WIN32
+		Sleep(3);
+#endif
+	}
   }
 
   // Wait until all thread have effectively stopped
   while (!mpLocalMapper->isFinished() || !mpLoopCloser->isFinished() ||
          mpLoopCloser->isRunningGBA())
   {
-    usleep(5000);
+#ifdef __linux__
+	  usleep(5000);
+#elif _WIN32
+	  Sleep(5);
+#endif
   }
 
   if (mpViewer) pangolin::BindToContext("ORB-SLAM2: Map Viewer");

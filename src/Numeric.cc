@@ -29,6 +29,7 @@
 
 #include <fstream>
 
+
 namespace ORB_SLAM2
 {
 Mat3 CrossProductMatrix(const Vec3 &x)

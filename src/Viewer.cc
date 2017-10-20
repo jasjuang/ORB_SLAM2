@@ -156,9 +156,13 @@ void Viewer::Run()
         if(Stop())
         {
             while(isStopped())
-            {
-                usleep(3000);
-            }
+			{
+#ifdef __linux__
+				usleep(3000);
+#elif _WIN32
+				Sleep(3);
+#endif
+			}
         }
 
         if(CheckFinish())
