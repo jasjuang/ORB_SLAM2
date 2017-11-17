@@ -44,6 +44,8 @@
 
 #include <mutex>
 
+#include <unistd.h>
+
 using namespace std;
 
 namespace ORB_SLAM2
@@ -1609,14 +1611,14 @@ void Tracking::Reset()
   if (mpViewer)
   {
     mpViewer->RequestStop();
-	while (!mpViewer->isStopped())
-	{
+    while (!mpViewer->isStopped())
+    {
 #ifdef __linux__
-		usleep(3000);
+      usleep(3000);
 #elif _WIN32
-		Sleep(3);
+      Sleep(3);
 #endif
-	}
+    }
   }
 
   // Reset Local Mapping
