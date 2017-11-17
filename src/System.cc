@@ -20,10 +20,16 @@
 */
 
 #include "System.h"
+
 #include <pangolin/pangolin.h>
+
 #include <iomanip>
+
 #include <thread>
+
 #include "Converter.h"
+
+#include <unistd.h>
 
 namespace ORB_SLAM2
 {
@@ -150,13 +156,13 @@ cv::Mat System::TrackStereo(const cv::Mat &imLeft,
 
       // Wait until Local Mapping has effectively stopped
       while (!mpLocalMapper->isStopped())
-	  {
+      {
 #ifdef __linux__
-		  usleep(1000);
+        usleep(1000);
 #elif _WIN32
-		  Sleep(1);
+        Sleep(1);
 #endif
-	  }
+      }
 
       mpTracker->InformOnlyTracking(true);
       mbActivateLocalizationMode = false;
@@ -208,13 +214,13 @@ cv::Mat System::TrackRGBD(const cv::Mat &im,
 
       // Wait until Local Mapping has effectively stopped
       while (!mpLocalMapper->isStopped())
-	  {
+      {
 #ifdef __linux__
-		  usleep(1000);
+        usleep(1000);
 #elif _WIN32
-		  Sleep(1);
+        Sleep(1);
 #endif
-	  }
+      }
 
       mpTracker->InformOnlyTracking(true);
       mbActivateLocalizationMode = false;
@@ -265,13 +271,13 @@ cv::Mat System::TrackMonocular(const cv::Mat &im, const double &timestamp)
 
       // Wait until Local Mapping has effectively stopped
       while (!mpLocalMapper->isStopped())
-	  {
+      {
 #ifdef __linux__
-		  usleep(1000);
+        usleep(1000);
 #elif _WIN32
-		  Sleep(1);
+        Sleep(1);
 #endif
-	  }
+      }
 
       mpTracker->InformOnlyTracking(true);
       mbActivateLocalizationMode = false;
@@ -343,13 +349,13 @@ void System::Shutdown()
   {
     mpViewer->RequestFinish();
     while (!mpViewer->isFinished())
-	{
+    {
 #ifdef __linux__
-		usleep(3000);
+      usleep(3000);
 #elif _WIN32
-		Sleep(3);
+      Sleep(3);
 #endif
-	}
+    }
   }
 
   // Wait until all thread have effectively stopped
@@ -357,9 +363,9 @@ void System::Shutdown()
          mpLoopCloser->isRunningGBA())
   {
 #ifdef __linux__
-	  usleep(5000);
+    usleep(5000);
 #elif _WIN32
-	  Sleep(5);
+    Sleep(5);
 #endif
   }
 
