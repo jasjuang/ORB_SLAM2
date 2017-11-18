@@ -51,7 +51,8 @@ set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
 generate_export_header(DBoW2)
 
 if(UNIX)
-  file(COPY build/dbow2_export.h DESTINATION ${PROJECT_SOURCE_DIR})
+  file(COPY build/dbow2_export.h DESTINATION ${PROJECT_SOURCE_DIR}/DBoW2)
+  file(COPY build/dbow2_export.h DESTINATION ${PROJECT_SOURCE_DIR}/DUtils)
 endif()
 
 install(TARGETS ${PROJECT_NAME}
