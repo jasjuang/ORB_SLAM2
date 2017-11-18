@@ -45,12 +45,14 @@ target_include_directories(DBoW2 PUBLIC
   ${OpenCV_INCLUDE_DIRS}
 )
 
-# if(MSVC)
 include(GenerateExportHeader)
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
 generate_export_header(DBoW2)
-# endif()
+
+if(UNIX)
+  file(COPY build/dbow2_export.h DESTINATION ${PROJECT_SOURCE_DIR})
+endif()
 
 install(TARGETS ${PROJECT_NAME}
   RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin
