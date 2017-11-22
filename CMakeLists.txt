@@ -54,13 +54,13 @@ find_package(Pangolin REQUIRED)
 find_package( MATLAB REQUIRED )
 
 # DBoW2 target
-add_subdirectory(${PROJECT_SOURCE_DIR}/Thirdparty/DBoW2/)
+# add_subdirectory(${PROJECT_SOURCE_DIR}/Thirdparty/DBoW2/)
 # g2o target
-add_subdirectory(${PROJECT_SOURCE_DIR}/Thirdparty/g2o/)
+# add_subdirectory(${PROJECT_SOURCE_DIR}/Thirdparty/g2o/)
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
 
-set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
+# set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
 add_library(${PROJECT_NAME} SHARED
 src/System.cc
@@ -95,8 +95,8 @@ ${OpenCV_LIBS}
 ${EIGEN3_LIBS}
 ${Pangolin_LIBRARIES}
 ${MATLAB_LIBRARIES}
-DBoW2
-g2o
+${PROJECT_SOURCE_DIR}/Thirdparty/DBoW2/lib/libDBoW2.a
+${PROJECT_SOURCE_DIR}/Thirdparty/g2o/lib/libg2o.a
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
