@@ -51,7 +51,7 @@ endif()
 
 find_package(Eigen3 3.1.0 REQUIRED)
 find_package(Pangolin REQUIRED)
-find_package( MATLAB REQUIRED )
+# find_package( MATLAB REQUIRED )
 
 # DBoW2 target
 # add_subdirectory(${PROJECT_SOURCE_DIR}/Thirdparty/DBoW2/)
@@ -85,7 +85,7 @@ src/Viewer.cc
 src/Numeric.cc
 src/Projection.cc
 src/Numeric.cc
-src/CheckerboardPose.cc
+# src/CheckerboardPose.cc
 )
 
 # set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Examples/Monocular)
@@ -94,7 +94,7 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
 ${OpenCV_LIBS}
 ${EIGEN3_LIBS}
 ${Pangolin_LIBRARIES}
-${MATLAB_LIBRARIES}
+# ${MATLAB_LIBRARIES}
 ${PROJECT_SOURCE_DIR}/Thirdparty/DBoW2/lib/libDBoW2.a
 ${PROJECT_SOURCE_DIR}/Thirdparty/g2o/lib/libg2o.a
 )
@@ -104,7 +104,7 @@ ${PROJECT_SOURCE_DIR}
 ${PROJECT_SOURCE_DIR}/include
 ${EIGEN3_INCLUDE_DIR}
 ${Pangolin_INCLUDE_DIRS}
-${MATLAB_INCLUDE_DIRS}
+# ${MATLAB_INCLUDE_DIRS}
 )
 
 
