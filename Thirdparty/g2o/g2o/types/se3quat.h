@@ -35,8 +35,8 @@
 namespace g2o {
   using namespace Eigen;
 
-  typedef Matrix<double, 6, 1> Vector6d;
-  typedef Matrix<double, 7, 1> Vector7d;
+  typedef Matrix<double, 6, 1, ColMajor> Vector6d;
+  typedef Matrix<double, 7, 1, ColMajor> Vector7d;
 
   class SE3Quat {
     public:
@@ -259,7 +259,7 @@ namespace g2o {
       Matrix<double, 6, 6> adj() const
       {
         Matrix3d R = _r.toRotationMatrix();
-        Matrix<double, 6, 6> res;
+        Matrix<double, 6, 6, ColMajor> res;
         res.block(0,0,3,3) = R;
         res.block(3,3,3,3) = R;
         res.block(3,0,3,3) = skew(_t)*R;
@@ -267,9 +267,9 @@ namespace g2o {
         return res;
       }
 
-      Matrix<double,4,4> to_homogeneous_matrix() const
+      Matrix<double,4,4, ColMajor> to_homogeneous_matrix() const
       {
-        Matrix<double,4,4> homogeneous_matrix;
+        Matrix<double,4,4, ColMajor> homogeneous_matrix;
         homogeneous_matrix.setIdentity();
         homogeneous_matrix.block(0,0,3,3) = _r.toRotationMatrix();
         homogeneous_matrix.col(3).head(3) = translation();

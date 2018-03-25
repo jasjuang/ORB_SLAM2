@@ -242,6 +242,11 @@ namespace g2o {
 
   bool OptimizableGraph::addVertex(HyperGraph::Vertex* v, Data* userData)
   {
+    if (v->id() <0){
+      cerr << __FUNCTION__ << ": FATAL, a vertex with (negative) ID " << v->id() << " cannot be inserted in the graph" << endl;
+      assert(0 && "Invalid vertex id");
+      return false;
+    }
     Vertex* inserted = vertex(v->id());
     if (inserted) {
       cerr << __FUNCTION__ << ": FATAL, a vertex with ID " << v->id() << " has already been registered with this graph" << endl;
